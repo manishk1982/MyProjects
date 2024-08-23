@@ -1,0 +1,500 @@
+Feature: Validate CRUD methods for Person model object # Person_API.feature:1
+
+  Scenario: Validate the POST API for adding a non-existing person                   # Person_API.feature:3
+    Given Set API endpoint as "/add"                                                 # steps/Person_API_test.py:11
+    And Body with non-existing person details                                        # steps/Person_API_test.py:16
+    When Send a POST HTTP request                                                    # steps/Person_API_test.py:36
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 174, in _new_conn
+          conn = connection.create_connection(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\connection.py", line 95, in create_connection
+          raise err
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\connection.py", line 85, in create_connection
+          sock.connect(sa)
+      ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 714, in urlopen
+          httplib_response = self._make_request(
+                             ^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 415, in _make_request
+          conn.request(method, url, **httplib_request_kw)
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 244, in request
+          super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1283, in request
+          self._send_request(method, url, body, headers, encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1329, in _send_request
+          self.endheaders(body, encode_chunked=encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1278, in endheaders
+          self._send_output(message_body, encode_chunked=encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1038, in _send_output
+          self.send(msg)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 976, in send
+          self.connect()
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 205, in connect
+          conn = self._new_conn()
+                 ^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 186, in _new_conn
+          raise NewConnectionError(
+      urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001A1094622D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 486, in send
+          resp = conn.urlopen(
+                 ^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 798, in urlopen
+          retries = retries.increment(
+                    ^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\retry.py", line 592, in increment
+          raise MaxRetryError(_pool, url, error or ResponseError(cause))
+      urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=5000): Max retries exceeded with url: /add (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001A1094622D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\behave\model.py", line 1329, in run
+          match.run(runner.context)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\behave\matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "steps\Person_API_test.py", line 38, in step_impl
+          response = requests.post(context.url, data=context.payload)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+          return request("post", url, data=data, json=json, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+          return session.request(method=method, url=url, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+          resp = self.send(prep, **send_kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+          r = adapter.send(request, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 519, in send
+          raise ConnectionError(e, request=request)
+      requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=5000): Max retries exceeded with url: /add (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001A1094622D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+    Then Receive status "True" and Response message as "Person created successfully" # None
+
+  Scenario: Validate the POST API for adding an existing person                 # Person_API.feature:9
+    Given Set API endpoint as "/add"                                            # steps/Person_API_test.py:11
+    And Body with existing person details                                       # steps/Person_API_test.py:27
+    When Send a POST HTTP request                                               # steps/Person_API_test.py:36
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 174, in _new_conn
+          conn = connection.create_connection(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\connection.py", line 95, in create_connection
+          raise err
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\connection.py", line 85, in create_connection
+          sock.connect(sa)
+      ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 714, in urlopen
+          httplib_response = self._make_request(
+                             ^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 415, in _make_request
+          conn.request(method, url, **httplib_request_kw)
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 244, in request
+          super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1283, in request
+          self._send_request(method, url, body, headers, encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1329, in _send_request
+          self.endheaders(body, encode_chunked=encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1278, in endheaders
+          self._send_output(message_body, encode_chunked=encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1038, in _send_output
+          self.send(msg)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 976, in send
+          self.connect()
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 205, in connect
+          conn = self._new_conn()
+                 ^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 186, in _new_conn
+          raise NewConnectionError(
+      urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001A1094E4E90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 486, in send
+          resp = conn.urlopen(
+                 ^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 798, in urlopen
+          retries = retries.increment(
+                    ^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\retry.py", line 592, in increment
+          raise MaxRetryError(_pool, url, error or ResponseError(cause))
+      urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=5000): Max retries exceeded with url: /add (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001A1094E4E90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\behave\model.py", line 1329, in run
+          match.run(runner.context)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\behave\matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "steps\Person_API_test.py", line 38, in step_impl
+          response = requests.post(context.url, data=context.payload)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 115, in post
+          return request("post", url, data=data, json=json, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+          return session.request(method=method, url=url, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+          resp = self.send(prep, **send_kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+          r = adapter.send(request, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 519, in send
+          raise ConnectionError(e, request=request)
+      requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=5000): Max retries exceeded with url: /add (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001A1094E4E90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+    Then Receive status "False" and Response message as "Person Already Exists" # None
+
+  Scenario: Validate the GET API for deleting an existing person                     # Person_API.feature:16
+    Given Set API endpoint as "/4/delete"                                            # steps/Person_API_test.py:11
+    When Send a GET HTTP request                                                     # steps/Person_API_test.py:42
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 174, in _new_conn
+          conn = connection.create_connection(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\connection.py", line 95, in create_connection
+          raise err
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\connection.py", line 85, in create_connection
+          sock.connect(sa)
+      ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 714, in urlopen
+          httplib_response = self._make_request(
+                             ^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 415, in _make_request
+          conn.request(method, url, **httplib_request_kw)
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 244, in request
+          super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1283, in request
+          self._send_request(method, url, body, headers, encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1329, in _send_request
+          self.endheaders(body, encode_chunked=encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1278, in endheaders
+          self._send_output(message_body, encode_chunked=encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1038, in _send_output
+          self.send(msg)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 976, in send
+          self.connect()
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 205, in connect
+          conn = self._new_conn()
+                 ^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 186, in _new_conn
+          raise NewConnectionError(
+      urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001A1094E85D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 486, in send
+          resp = conn.urlopen(
+                 ^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 798, in urlopen
+          retries = retries.increment(
+                    ^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\retry.py", line 592, in increment
+          raise MaxRetryError(_pool, url, error or ResponseError(cause))
+      urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=5000): Max retries exceeded with url: /4/delete (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001A1094E85D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\behave\model.py", line 1329, in run
+          match.run(runner.context)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\behave\matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "steps\Person_API_test.py", line 44, in step_impl
+          response = requests.get(context.url)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 73, in get
+          return request("get", url, params=params, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+          return session.request(method=method, url=url, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+          resp = self.send(prep, **send_kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+          r = adapter.send(request, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 519, in send
+          raise ConnectionError(e, request=request)
+      requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=5000): Max retries exceeded with url: /4/delete (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001A1094E85D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+    Then Receive status "True" and Response message as "Person deleted successfully" # None
+
+  Scenario: Validate the GET API for deleting a non-existing person             # Person_API.feature:21
+    Given Set API endpoint as "/9876/delete"                                    # steps/Person_API_test.py:11
+    When Send a GET HTTP request                                                # steps/Person_API_test.py:42
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 174, in _new_conn
+          conn = connection.create_connection(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\connection.py", line 95, in create_connection
+          raise err
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\connection.py", line 85, in create_connection
+          sock.connect(sa)
+      ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 714, in urlopen
+          httplib_response = self._make_request(
+                             ^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 415, in _make_request
+          conn.request(method, url, **httplib_request_kw)
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 244, in request
+          super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1283, in request
+          self._send_request(method, url, body, headers, encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1329, in _send_request
+          self.endheaders(body, encode_chunked=encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1278, in endheaders
+          self._send_output(message_body, encode_chunked=encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1038, in _send_output
+          self.send(msg)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 976, in send
+          self.connect()
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 205, in connect
+          conn = self._new_conn()
+                 ^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 186, in _new_conn
+          raise NewConnectionError(
+      urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001A1094EB7D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 486, in send
+          resp = conn.urlopen(
+                 ^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 798, in urlopen
+          retries = retries.increment(
+                    ^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\retry.py", line 592, in increment
+          raise MaxRetryError(_pool, url, error or ResponseError(cause))
+      urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=5000): Max retries exceeded with url: /9876/delete (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001A1094EB7D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\behave\model.py", line 1329, in run
+          match.run(runner.context)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\behave\matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "steps\Person_API_test.py", line 44, in step_impl
+          response = requests.get(context.url)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 73, in get
+          return request("get", url, params=params, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+          return session.request(method=method, url=url, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+          resp = self.send(prep, **send_kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+          r = adapter.send(request, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 519, in send
+          raise ConnectionError(e, request=request)
+      requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=5000): Max retries exceeded with url: /9876/delete (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001A1094EB7D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+    Then Receive status "False" and Response message as "Person Doesn't Exists" # None
+
+  Scenario: Validate the GET API to fetch details of an existing person  # Person_API.feature:27
+    Given Set API endpoint as "/2/get"                                   # steps/Person_API_test.py:11
+    When Send a GET HTTP request                                         # steps/Person_API_test.py:42
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 174, in _new_conn
+          conn = connection.create_connection(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\connection.py", line 95, in create_connection
+          raise err
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\connection.py", line 85, in create_connection
+          sock.connect(sa)
+      ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 714, in urlopen
+          httplib_response = self._make_request(
+                             ^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 415, in _make_request
+          conn.request(method, url, **httplib_request_kw)
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 244, in request
+          super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1283, in request
+          self._send_request(method, url, body, headers, encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1329, in _send_request
+          self.endheaders(body, encode_chunked=encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1278, in endheaders
+          self._send_output(message_body, encode_chunked=encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1038, in _send_output
+          self.send(msg)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 976, in send
+          self.connect()
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 205, in connect
+          conn = self._new_conn()
+                 ^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 186, in _new_conn
+          raise NewConnectionError(
+      urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001A1094FA550>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 486, in send
+          resp = conn.urlopen(
+                 ^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 798, in urlopen
+          retries = retries.increment(
+                    ^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\retry.py", line 592, in increment
+          raise MaxRetryError(_pool, url, error or ResponseError(cause))
+      urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=5000): Max retries exceeded with url: /2/get (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001A1094FA550>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\behave\model.py", line 1329, in run
+          match.run(runner.context)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\behave\matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "steps\Person_API_test.py", line 44, in step_impl
+          response = requests.get(context.url)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 73, in get
+          return request("get", url, params=params, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+          return session.request(method=method, url=url, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+          resp = self.send(prep, **send_kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+          r = adapter.send(request, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 519, in send
+          raise ConnectionError(e, request=request)
+      requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=5000): Max retries exceeded with url: /2/get (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001A1094FA550>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+    Then Receive response as "not null"                                  # None
+    And valid Person object                                              # None
+
+  Scenario: Validate the GET API to fetch details of a non-existing person  # Person_API.feature:33
+    Given Set API endpoint as "/9899/get"                                   # steps/Person_API_test.py:11
+    When Send a GET HTTP request                                            # steps/Person_API_test.py:42
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 174, in _new_conn
+          conn = connection.create_connection(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\connection.py", line 95, in create_connection
+          raise err
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\connection.py", line 85, in create_connection
+          sock.connect(sa)
+      ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 714, in urlopen
+          httplib_response = self._make_request(
+                             ^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 415, in _make_request
+          conn.request(method, url, **httplib_request_kw)
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 244, in request
+          super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1283, in request
+          self._send_request(method, url, body, headers, encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1329, in _send_request
+          self.endheaders(body, encode_chunked=encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1278, in endheaders
+          self._send_output(message_body, encode_chunked=encode_chunked)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1038, in _send_output
+          self.send(msg)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 976, in send
+          self.connect()
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 205, in connect
+          conn = self._new_conn()
+                 ^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connection.py", line 186, in _new_conn
+          raise NewConnectionError(
+      urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001A109501110>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 486, in send
+          resp = conn.urlopen(
+                 ^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\connectionpool.py", line 798, in urlopen
+          retries = retries.increment(
+                    ^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Roaming\Python\Python311\site-packages\urllib3\util\retry.py", line 592, in increment
+          raise MaxRetryError(_pool, url, error or ResponseError(cause))
+      urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=5000): Max retries exceeded with url: /9899/get (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001A109501110>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+      
+      During handling of the above exception, another exception occurred:
+      
+      Traceback (most recent call last):
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\behave\model.py", line 1329, in run
+          match.run(runner.context)
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\behave\matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "steps\Person_API_test.py", line 44, in step_impl
+          response = requests.get(context.url)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 73, in get
+          return request("get", url, params=params, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\api.py", line 59, in request
+          return session.request(method=method, url=url, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 589, in request
+          resp = self.send(prep, **send_kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\sessions.py", line 703, in send
+          r = adapter.send(request, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\gur13360\AppData\Local\Programs\Python\Python311\Lib\site-packages\requests\adapters.py", line 519, in send
+          raise ConnectionError(e, request=request)
+      requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=5000): Max retries exceeded with url: /9899/get (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001A109501110>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+
+    Then Receive response as "null"                                         # None
+
+  Scenario: Validate the GET API to fetch dummy person details  # Person_API.feature:39
+    Given Set API endpoint as "/9874/getDummy"                  # steps/Person_API_test.py:11
+    When Send a GET HTTP request                                # steps/Person_API_test.py:42
+      ABORTED: By user (KeyboardInterrupt).
+
+    Then Receive response as "not null"                         # None
+    And valid Person object                                     # None
+    And valid dummy values                                      # None
+
